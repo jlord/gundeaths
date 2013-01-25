@@ -45,6 +45,7 @@
 	      <p>Below, a funds comparison between the Foucs Areas in Economic Development.</p>
 	      <div id="holder"></div><!-- holds spot for bar chart -->
 	      <div id="holder2"></div><!-- holds spot for bar chart -->
+        <div id="table" style="height: 500px; background: #ff00ff;"></div><!-- holds spot for table -->
 	  </div><!-- end holder -->
 						 
 	</div><!-- end #maincontainer -->
@@ -56,6 +57,19 @@
 			
 <script id="stats" type="text/html">// format stats
 	<h5>There have been {{totalFatalities}} gun fatalities since the Sandy Hook Elementary School shooting. Among the victims, {{noMen}} were men, {{noWomen}} were women. Since the Newtown incident, there have been {{highestStateCount}} deaths by firearm in {{highestState}}, more than any other state in the country.</h5>
+</script>
+
+<script id="table" type="text/html">// format stats
+  <table>
+  <thead>
+  <tr class="tableheader">
+  <th>NAME</th><th>AGE</th><th>GENDER</th><th>DATE</th><th>CITY</th><th>STATE</th>
+  </tr>
+  </thead>
+  {{#rows}}
+    <tr><td class = "project">{{name}}</td><td class="total">{{age}}</td><td class="yrdolls">{{gender}}</td><td class="yrdolls">{{date}}</td><td class="yrdolls">{{city}}</td><td class="yrdolls">{{state}}</td></tr>
+  {{/rows}}
+  </table>
 </script>
   
 			
@@ -176,7 +190,16 @@
         highestStateCount : mostFrequent(theData)[1]
       })
       $('#stats').html(stats)
+
+    var table = ich.table({
+      "rows" : theData
+      })
+      $('#table').html(table)
+
     }
+
+
+    
 
 
 </script>
