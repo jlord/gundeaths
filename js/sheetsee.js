@@ -284,7 +284,7 @@ function inProgressSpent (projects) {
 // Mappin' with Leaflet.js
 
 function displayAddress(map, project) {
-  var markerLocation = new L.LatLng(project.lat, project.long);
+  var markerLocation = new L.LatLng(project.lat, project.lng);
   setCenter(map, markerLocation)
   var marker = new L.Marker(markerLocation);
   map.addLayer(marker);

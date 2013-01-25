@@ -230,6 +230,7 @@
  
      // make map 
 
+<<<<<<< HEAD
      // var map = loadMap()
      // theData.forEach(function (theData){ // forEach doesn't exist in IE8 below, see alternate function in sheetsee
      //   theData.long = theData.lng;
@@ -240,6 +241,35 @@
      //   // }
 
      // })
+=======
+     //var map = loadMap();
+     makeMap(loadMap(), filterByDate(
+                 new Date().getTime(), 
+                 new Date(new Date().getTime()-1000*60*60*24*7).getTime()
+             )
+     );
+    }
+
+    var makeMap = function(map, filter) {
+        for (var i = 0; i < theData.length; i++) {
+            var data = theData[i];
+            if (data.lng && data.lat && filter(data)) {
+                displayAddress(map, data);
+            }
+        }
+    }
+
+
+    var filterByDate = function(end_date, begin_date) {
+        return function(data) {
+            if (!data.time) {
+                var dateArray = data.date.split('-'); 
+                data.time = new Date(dateArray[0], dateArray[1], dateArray[2]).getTime();
+            }
+            return (data.time < end_date && data.time > begin_date);
+        };
+    }
+>>>>>>> af4b6cf3179a787e747a3590d2983e20afbb2e54
 
      // var noProjsInCat = thePageParent.length 
      // if user's browswer doesn't support SVG, tell them
@@ -264,6 +294,7 @@
      }
     	// These define the tables  	
       // -- quick stats table
+<<<<<<< HEAD
 
 
 
@@ -278,6 +309,8 @@
 
 
    }
+=======
+>>>>>>> af4b6cf3179a787e747a3590d2983e20afbb2e54
 </script>
 </body>
 </html>
