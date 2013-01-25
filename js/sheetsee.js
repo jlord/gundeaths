@@ -311,8 +311,8 @@ function setCenter(map, markerLocation) {
 // d3 chartyness
 
 function renderGraph(data, noProjsInCat, divTown) {
-
-var m = [30, 60, 10, 200],
+// margin = t, r, b, l
+var m = [30, 60, 10, 100],
     w = 780 - m[1] - m[3],
     h = (noProjsInCat * 40) - m[0] - m[2];
 
