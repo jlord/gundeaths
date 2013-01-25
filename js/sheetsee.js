@@ -1,18 +1,39 @@
 // globals for everyone! 
 
 var YEARS = ["year2012", "year2013", "year2014", "year2015", "year2016", "year2017", "year2018", "year2019"]
-var URL = 'https://docs.google.com/spreadsheet/pub?key=0Aj3c4mZCQQaMdGE2TVphOWlXMUMyclRXa2Z1c0g5MGc&output=html';
+var URL = 'https://docs.google.com/spreadsheet/pub?key=0AiK02J6OppqxdE5ycWRNOXJyNk40WXBrS2JGUUdRUHc&output=html';
 var categoryColumn = "category"
 var focusAreaColumn = "focusarea"
 var projectColumn = "project"
 var tot = "total"
+var callbacks = [];
 
 
 // get that spreadsheet!
 
 function loadSpreadsheet() {
-  
-  Tabletop.init( { key: URL, callback: showInfo, simpleSheet: true } )
+  var callback = function(data) {
+      console.log('callback called:');
+  }
+
+  var script = document.createElement('script'),
+  self = this,
+  callbackName = 'sheetsee' + (+new Date()) + (Math.floor(Math.random()*100000));
+  // Create a temp callback which will get removed once it has executed,
+  // this allows multiple instances to coexist.
+  callbacks[ callbackName ] = function (data) {
+    var args = Array.prototype.slice.call( arguments, 0 );
+    callback.apply(self, args);
+    script.parentNode.removeChild(script);
+    delete callbacks[callbackName];
+    console.log('here, yo');
+    var all_data = [];
+    showInfo(data);
+  };
+  url = 'http://slate-interactives-prod.elasticbeanstalk.com/gun-deaths/getVictims.php' 
+      + "?callback=" + 'callbacks.' + callbackName;
+  script.src = url;
+  document.getElementsByTagName('script')[0].parentNode.appendChild(script);
 }
 
 // generic things
