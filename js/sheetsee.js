@@ -323,7 +323,7 @@ function loadMap() {
 }
 
 function setCenter(map, markerLocation) {
-	map.setView(markerLocation, 2)
+	map.setView(markerLocation, 5)
 }	
 
 // d3 chartyness
