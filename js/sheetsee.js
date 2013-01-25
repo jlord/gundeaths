@@ -14,6 +14,7 @@ var callbacks = [];
 function loadSpreadsheet() {
   var callback = function(data) {
       console.log('callback called:');
+      console.log(data);
   }
 
   var script = document.createElement('script'),
