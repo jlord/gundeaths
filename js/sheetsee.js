@@ -1,7 +1,6 @@
 // globals for everyone! 
 
-var YEARS = ["year2012", "year2013", "year2014", "year2015", "year2016", "year2017", "year2018", "year2019"]
-var URL = 'https://docs.google.com/spreadsheet/pub?key=0AiK02J6OppqxdE5ycWRNOXJyNk40WXBrS2JGUUdRUHc&output=html';
+// var URL = 'https://docs.google.com/spreadsheet/pub?key=0AiK02J6OppqxdE5ycWRNOXJyNk40WXBrS2JGUUdRUHc&output=html';
 var categoryColumn = "category"
 var focusAreaColumn = "focusarea"
 var projectColumn = "project"
@@ -306,7 +305,7 @@ function loadMap() {
 }
 
 function setCenter(map, markerLocation) {
-	map.setView(markerLocation, 13)
+	map.setView(markerLocation, 5)
 }	
 
 // d3 chartyness

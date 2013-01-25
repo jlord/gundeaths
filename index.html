@@ -180,23 +180,27 @@
      loadSpreadsheet(showInfo)
    })    
 	 
-   function showInfo(data, tabletop) {
-     window.tabletopData = tabletop  
+   function showInfo(data) {
 
-     theData = tabletop.sheets("Sheet 1").all() 
+   	theData = data 
 
 		 L.Icon.Default.imagePath = "images/"
      accounting.settings.currency.precision = 0
-     var pageParent = "CA" // get Parent Page name which is Category
-     var pageName = "incident number" // get Page name which is Focus Area
+     // var pageParent = "CA" // get Parent Page name which is Category
+     // var pageName = "incident number" // get Page name which is Focus Area
      // var thePageParent = getType(data, pageParent) // Filter to array of Category
-     var thePageName  = getProject(theData, pageName) // Filte to object of Focus Area
+     // var thePageName  = getProject(theData, pageName) // Filte to object of Focus Area
  
      // make map 
 
      var map = loadMap()
-     thePageName.forEach(function (thePageName){ // forEach doesn't exist in IE8 below, see alternate function in sheetsee
-       displayAddress(map, thePageName)
+     theData.forEach(function (theData){ // forEach doesn't exist in IE8 below, see alternate function in sheetsee
+       theData.long = theData.lng;
+      	// if (theData.long && theData.lat) {
+       		displayAddress(map, theData)
+       // }
+       // else { console.log(theData)
+       // }
 
      })
 
