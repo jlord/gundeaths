@@ -288,7 +288,7 @@ function displayAddress(map, project) {
   setCenter(map, markerLocation)
   var marker = new L.Marker(markerLocation);
   map.addLayer(marker);
-  marker.bindPopup(project[focusAreaColumn]).openPopup();
+  marker.bindPopup(project["victim name"]).openPopup();
 }
 
 function loadMap() {
@@ -332,32 +332,32 @@ var svg = d3.select(divTown).append("svg")
  
 
   // Parse numbers, and sort by value.
-  data.forEach(function(d) { d.total = +d.total; });
-  // data.sort(function(a, b) { return b.total - a.the_post_thumbnail; });
+  data.forEach(function(d) { d.units = +d.units; });
+  // data.sort(function(a, b) { return b.units - a.the_post_thumbnail; });
 
   // Set the scale domain.
-  x.domain([0, d3.max(data, function(d) { return d.total; })]);
-  y.domain(data.map(function(d) { return d.focusarea; }));
+  x.domain([0, d3.max(data, function(d) { return d.units; })]);
+  y.domain(data.map(function(d) { return d.label; }));
 
   var bar = svg.selectAll("g.bar")
       .data(data)
     .enter().append("g")
       .attr("class", "bar")
-      .attr("transform", function(d) { return "translate(0," + y(d.focusarea) + ")"; });
+      .attr("transform", function(d) { return "translate(0," + y(d.label) + ")"; });
 
   bar.append("rect")
-      .attr("width", function(d) { return x(d.total); })
+      .attr("width", function(d) { return x(d.units); })
       .attr("height", y.rangeBand())
       .style("fill", function(d) { return d.hexcolor; });
 
   bar.append("text")
       .attr("class", "value")
-      .attr("x", function(d) { return x(d.total); })
+      .attr("x", function(d) { return x(d.units); })
       .attr("y", y.rangeBand() / 2)
       .attr("dx", 60)
       .attr("dy", ".35em")
       .attr("text-anchor", "end")
-      .text(function(d) { return format(d.total); });
+      .text(function(d) { return format(d.units); });
       
 
   svg.append("g")

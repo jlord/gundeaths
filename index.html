@@ -159,7 +159,7 @@
 </script>
 			
 <script id="stats" type="text/html">// format stats
- <h5>Centreplex has <span class="statHighlight">{{numberItemizedProjects}}</span> projects, <span class="statHighlight">{{numberInProgress}}</span> of which labeled in progress and <span class="statHighlight">{{completeProjects}}</span> are complete.</h5>
+	<h5>There have been {{totalFatalities}} gun fatalities since the Sandy Hook Elementary School shooting. Among the victims, {{noMen}} were men, {{noWomen}} were women. Since the Newtown incident, there have been {{highestStateCount}} deaths by firearm in {{highestState}}, more than any other state in the country.</h5>
 </script>
   
 <script id="schedule" type="text/html">// format funding dispersal schedule
@@ -184,6 +184,43 @@
 
    	theData = data 
 
+		function getColumnSum (data, columnToSum) {
+		  if (projects = []) return "0"
+		  var columnSum = []
+		  data.forEach(function (element) {
+		    if (element.columnToSum === "") return 
+		    columnSum.push(+element.columnToSum) 
+		  })
+		  return columnSum.reduce(function(a,b) {
+		    return a + b
+		  })
+		}
+
+		function filterData (data, filterTerm, columnName) {
+			var filteredProjects = []
+	  		data.forEach(function (element) {
+	    var dataType = element[columnName]
+	    if (dataType === filterTerm) filteredProjects.push(element)
+	  })
+	  return filteredProjects
+		}
+
+		function mostFrequent(data) {
+			var stateCount = {};
+   		for (var i = 0; i < data.length; i++)  {
+       if (!stateCount[data[i].state]) {
+           stateCount[data[i].state] = 0;
+       }
+       stateCount[data[i].state]++
+   }
+   			var sortable = [];
+ 				for (var state in stateCount) {
+      		sortable.push([state, stateCount[state]]);
+      }
+ 					sortable.sort(function(a, b) {return b[1] - a[1]})
+   				return	sortable[0];
+		}
+
 		 L.Icon.Default.imagePath = "images/"
      accounting.settings.currency.precision = 0
      // var pageParent = "CA" // get Parent Page name which is Category
@@ -193,26 +230,53 @@
  
      // make map 
 
-     var map = loadMap()
-     theData.forEach(function (theData){ // forEach doesn't exist in IE8 below, see alternate function in sheetsee
-       theData.long = theData.lng;
-      	// if (theData.long && theData.lat) {
-       		displayAddress(map, theData)
-       // }
-       // else { console.log(theData)
-       // }
+     // var map = loadMap()
+     // theData.forEach(function (theData){ // forEach doesn't exist in IE8 below, see alternate function in sheetsee
+     //   theData.long = theData.lng;
+     //  	// if (theData.long && theData.lat) {
+     //   		displayAddress(map, theData)
+     //   // }
+     //   // else { console.log(theData)
+     //   // }
 
-     })
+     // })
 
      // var noProjsInCat = thePageParent.length 
      // if user's browswer doesn't support SVG, tell them
-     // if (Modernizr.svg) renderGraph(thePageParent, noProjsInCat, "#holder") 
-     //   else sorrySVG("#holder") 
-     // function sorrySVG(divTown) {
-     //   $(divTown).text("Sorry, to see the chart you'll need to update your browser. <a href='https://www.google.com/intl/en/chrome/browser/'>Google Chrome</a> is great.")
-     // }
+
+      maleData = filterData(theData, "M", "gender")
+      femaleData = filterData(theData, "F", "gender")
+      adultData = filterData(theData, "3", "ageGroup")
+      teenData = filterData(theData, "2", "ageGroup")
+      childData = filterData(theData, "1", "ageGroup")
+
+      hexcolor = "#ff00ff"
+
+      menVwomen = [{"label": "men", "units": maleData.length}, {"label": "women", "units": femaleData.length}]
+      ageRange = [{"label": "adults", "units": adultData.length}, {"label": "teens", "units": teenData.length}, {"label": "children", "units": childData.length}]
+
+
+
+     if (Modernizr.svg) renderGraph(ageRange, ageRange.length, "#holder") 
+       else sorrySVG("#holder") 
+     function sorrySVG(divTown) {
+       $(divTown).text("Sorry, to see the chart you'll need to update your browser. <a href='https://www.google.com/intl/en/chrome/browser/'>Google Chrome</a> is great.")
+     }
     	// These define the tables  	
       // -- quick stats table
+
+
+
+      var stats = ich.stats({
+        totalFatalities : theData.length,
+        noMen : filterData(theData, "M", "gender").length,
+        noWomen : filterData(theData, "F", "gender").length,
+        highestState : mostFrequent(theData)[0],
+        highestStateCount : mostFrequent(theData)[1]
+      })
+      $('#stats').html(stats)
+
+
    }
 </script>
 </body>
