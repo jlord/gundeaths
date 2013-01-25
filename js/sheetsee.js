@@ -6,13 +6,35 @@ var categoryColumn = "category"
 var focusAreaColumn = "focusarea"
 var projectColumn = "project"
 var tot = "total"
+var callbacks = [];
 
 
 // get that spreadsheet!
 
 function loadSpreadsheet() {
-  
-  Tabletop.init( { key: URL, callback: showInfo, simpleSheet: true } )
+  var callback = function(data) {
+      console.log('callback called:');
+      console.log(data);
+  }
+
+  var script = document.createElement('script'),
+  self = this,
+  callbackName = 'sheetsee' + (+new Date()) + (Math.floor(Math.random()*100000));
+  // Create a temp callback which will get removed once it has executed,
+  // this allows multiple instances to coexist.
+  callbacks[ callbackName ] = function (data) {
+    var args = Array.prototype.slice.call( arguments, 0 );
+    callback.apply(self, args);
+    script.parentNode.removeChild(script);
+    delete callbacks[callbackName];
+    console.log('here, yo');
+    var all_data = [];
+    showInfo(data);
+  };
+  url = 'http://slate-interactives-prod.elasticbeanstalk.com/gun-deaths/getVictims.php' 
+      + "?callback=" + 'callbacks.' + callbackName;
+  script.src = url;
+  document.getElementsByTagName('script')[0].parentNode.appendChild(script);
 }
 
 // generic things
