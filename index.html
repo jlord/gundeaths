@@ -129,8 +129,7 @@
     var filterByDate = function(end_date, begin_date) {
         return function(data) {
             if (!data.time) {
-                var dateArray = data.date.split('-'); 
-                data.time = new Date(dateArray[0], dateArray[1], dateArray[2]).getTime();
+                data.time = new Date(data.date).getTime();
             }
             return (data.time < end_date && data.time > begin_date);
         };
