@@ -118,18 +118,7 @@
 	      <p>Nothing yet to report in Centreplex.</p>
 	    </div>
 	  </div><!-- end holder -->
-						
-	  <div id="sharing">
-	    <p>Share this page: </p>
-	    <a href="https://twitter.com/share" class="twitter-share-button" data-via="jllord" data-hashtags="MaconSPLOST">Tweet</a>
-	    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];
-	      if(!d.getElementById(id)){js=d.createElement(s);
-	      js.id=id; js.src="//platform.twitter.com/widgets.js";
-	      fjs.parentNode.insertBefore(js,fjs);}
-	      }(document,"script","twitter-wjs");</script>
-	    <g:plusone size="medium"></g:plusone>
-	    <div class="fb-like" data-send="true" data-layout="button_count" data-width="100" data-show-faces="false"></div>
-	  </div>   
+						 
 	</div><!-- end #maincontainer -->
 	 
 	<div id="footer">
@@ -192,83 +181,35 @@
    })    
 	 
    function showInfo(data, tabletop) {
-     window.tabletopData = tabletop   
+     window.tabletopData = tabletop  
+
+     theData = tabletop.sheets("Sheet 1").all() 
 
 		 L.Icon.Default.imagePath = "images/"
      accounting.settings.currency.precision = 0
-     var pageParent = "Economic Development" // get Parent Page name which is Category
-     var pageName = "Centreplex" // get Page name which is Focus Area
-     var thePageParent = getType(data, pageParent) // Filter to array of Category
-     var thePageName  = getProject(data, pageName) // Filte to object of Focus Area
+     var pageParent = "CA" // get Parent Page name which is Category
+     var pageName = "incident number" // get Page name which is Focus Area
+     // var thePageParent = getType(data, pageParent) // Filter to array of Category
+     var thePageName  = getProject(theData, pageName) // Filte to object of Focus Area
  
      // make map 
 
      var map = loadMap()
      thePageName.forEach(function (thePageName){ // forEach doesn't exist in IE8 below, see alternate function in sheetsee
        displayAddress(map, thePageName)
+
      })
 
-     var noProjsInCat = thePageParent.length 
+     // var noProjsInCat = thePageParent.length 
      // if user's browswer doesn't support SVG, tell them
-     if (Modernizr.svg) renderGraph(thePageParent, noProjsInCat, "#holder") 
-       else sorrySVG("#holder") 
-     function sorrySVG(divTown) {
-       $(divTown).text("Sorry, to see the chart you'll need to update your browser. <a href='https://www.google.com/intl/en/chrome/browser/'>Google Chrome</a> is great.")
-     }
+     // if (Modernizr.svg) renderGraph(thePageParent, noProjsInCat, "#holder") 
+     //   else sorrySVG("#holder") 
+     // function sorrySVG(divTown) {
+     //   $(divTown).text("Sorry, to see the chart you'll need to update your browser. <a href='https://www.google.com/intl/en/chrome/browser/'>Google Chrome</a> is great.")
+     // }
     	// These define the tables  	
       // -- quick stats table
-      var itemizedArea = getActualsArea(tabletop.sheets("actuals").all(), pageName)
-      var completeProjects = getStatusCount(itemizedArea, "Complete")
-      var inProgress = getInProgress(itemizedArea)
-      var sumInProgress = inProgressSpent(itemizedArea)
-
-      var stats = ich.stats({
-        numberItemizedProjects: itemizedArea.length,
-        numberInProgress: inProgress.length,
-        sumInProgress: accounting.formatMoney(sumInProgress),
-        currentDate: getCurrentYear(),
-        completeProjects: completeProjects
-      })
-
-      // -- schedule table
-      var schedule = ich.schedule({
-        rows: turnCurrency(thePageName)
-      }) 
-
-      // -- monthly expense table
-      var monthlyrev = getActualsArea(tabletop.sheets("actuals").all(), pageName)
-      var reportmonth = getCurrentMonth() - 1
-      var reportyear = getCurrentYear()
-      var monthly = ich.monthly({
-        rows: turnReportCurrency(monthlyrev),
-        reportyear: reportyear,
-        reportmonth: reportmonth
-      })
-
-     // write these objects to the page
-     $('#stats').html(stats)
-     $('#table').html(schedule)
-     if (monthlyrev.length > 0) $('#monthly').html(monthly)
    }
-</script>
-<script type="text/javascript">
-  //makes g+ button
-  (function() {
-    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-    po.src = 'https://apis.google.com/js/plusone.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-  })();
-</script>
-<div id="fb-root"></div>
-<script>
-  // makes facebook button
-  (function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
 </script>
 </body>
 </html>

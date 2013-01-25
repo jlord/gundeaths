@@ -1,7 +1,7 @@
 // globals for everyone! 
 
 var YEARS = ["year2012", "year2013", "year2014", "year2015", "year2016", "year2017", "year2018", "year2019"]
-var URL = 'https://docs.google.com/spreadsheet/pub?key=0Aj3c4mZCQQaMdGE2TVphOWlXMUMyclRXa2Z1c0g5MGc&output=html';
+var URL = 'https://docs.google.com/spreadsheet/pub?key=0AiK02J6OppqxdE5ycWRNOXJyNk40WXBrS2JGUUdRUHc&output=html';
 var categoryColumn = "category"
 var focusAreaColumn = "focusarea"
 var projectColumn = "project"
@@ -35,6 +35,7 @@ function getType(projects, projectFilter) {
   projects.forEach(function (element) {
     var projectType = element[categoryColumn]
     if (projectType === projectFilter) filteredProjects.push(element)
+    console.log("i made it here")
   })
   return filteredProjects
 }
