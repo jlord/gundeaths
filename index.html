@@ -34,9 +34,18 @@
   <div id="maincontainer" class="overview" >
   
 	  <div class="articleHolder">
-	    <h3>HELLO!</h3>
+	    <h3>One Nation, Under the Gun</h3>
 	      <div id="stats" ></div><!-- holds spot for stats -->
-	      <div id="map" class="fullmap"><img class="spinner" src="images/fbi_spinner.gif"></div><!-- holds spot for map -->
+	      	<ul>
+				<li onclick = "filterMap(0)" >week one</li>
+				<li onclick = "filterMap(1)" >week two</li>
+				<li onclick = "filterMap(2)" >week three</li>
+				<li onclick = "filterMap(3)" >week four</li>
+				<li onclick = "filterMap(4)" >week five</li>
+				<li onclick = "filterMap(5)" >week six</li>
+				<li onclick = "filterMap(6)" >week seven</li>
+			</ul>
+			<div id="map" class="fullmap"><img class="spinner" src="images/fbi_spinner.gif"></div><!-- holds spot for map -->
 	      <div class="clear"></div>
 	  </div><!-- end holder -->
 
@@ -130,24 +139,6 @@
 
      //var map = loadMap();
 
-    var makeMap = function(map, filter) {
-        for (var i = 0; i < theData.length; i++) {
-            var data = theData[i];
-            if (data.lng && data.lat && filter(data)) {
-                displayAddress(map, data);
-            }
-        }
-    }
-
-
-    var filterByDate = function(end_date, begin_date) {
-        return function(data) {
-            if (!data.time) {
-                data.time = new Date(data.date).getTime();
-            }
-            return (data.time < end_date && data.time > begin_date);
-        };
-    }
      makeMap(loadMap(), filterByDate(
                  new Date().getTime(), 
                  new Date(new Date().getTime()-1000*60*60*24*7).getTime()
@@ -198,7 +189,34 @@
 
     }
 
+	function filterMap(weeks) {        
+		var week = 1000*60*60*24*7;
+		makeMap(loadMap(), filterByDate(
+				new Date(new Date().getTime()-week*weeks).getTime(),
+                new Date(new Date().getTime()-week*(weeks+1) ).getTime()
+            )
+    	);
+	}
 
+
+var makeMap = function(map, filter) {
+        for (var i = 0; i < theData.length; i++) {
+            var data = theData[i];
+            if (data.lng && data.lat && filter(data)) {
+                displayAddress(map, data);
+            }
+        }
+    }
+
+
+var filterByDate = function(end_date, begin_date) {
+        return function(data) {
+            if (!data.time) {
+                data.time = new Date(data.date).getTime();
+            }
+            return (data.time < end_date && data.time > begin_date);
+        };
+    }
     
 
 
