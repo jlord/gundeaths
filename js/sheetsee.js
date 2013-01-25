@@ -288,7 +288,25 @@ function displayAddress(map, project) {
   setCenter(map, markerLocation)
   var marker = new L.Marker(markerLocation);
   map.addLayer(marker);
-  marker.bindPopup(project["victim name"]).openPopup();
+  var thisDate = new Date(project.date);
+  marker.bindPopup(
+          (project.name
+            ? 'Name: ' + project.name + '<br/>'
+            : ''
+          )
+          + ((project.city && project.state) 
+              ? 'City : ' + project.city + ' ' + project.state + '<br/>'
+              : ''
+          )
+          + (project.age
+              ? 'Age: ' + project.age + ' years old<br/>'
+              : ''
+            )
+          + ( thisDate 
+              ? 'On: ' + thisDate.toLocaleDateString()
+              : ''
+            )
+  ).openPopup();
 }
 
 function loadMap() {
