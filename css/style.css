@@ -297,7 +297,7 @@ tr {border-bottom: 1px dotted #acacac;}
 
 /* **** Map ***** */
 #map.halfmap {width: 60%; float: left; height: 300px;}
-#map.fullmap {width: 100%; height: 300px; margin-top: 20px;}
+#map.fullmap {width: 100%; height: 500px; margin-top: 20px;}
 /*#map {overflow: auto;}
 */
 .intro a {border-bottom: 1px dotted #acacac; padding-bottom: 2px;}
