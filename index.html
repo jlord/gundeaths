@@ -39,7 +39,7 @@
 	  <article>
 	    <h3>Overview</h3>
 	      <div id="stats" ></div><!-- holds spot for stats -->
-	      	<ul>
+	      	<!-- ><ul>
 				<li onclick = "filterMap(0)" >week one</li>
 				<li onclick = "filterMap(1)" >week two</li>
 				<li onclick = "filterMap(2)" >week three</li>
@@ -47,7 +47,7 @@
 				<li onclick = "filterMap(4)" >week five</li>
 				<li onclick = "filterMap(5)" >week six</li>
 				<li onclick = "filterMap(6)" >week seven</li>
-			</ul>
+			</ul> -->
 			<div id="map" class="fullmap"><img class="spinner" src="images/fbi_spinner.gif"></div><!-- holds spot for map -->
 	      <div class="clear"></div>
 	  </article><!-- end holder -->
@@ -91,7 +91,8 @@
   document.addEventListener('DOMContentLoaded', function() { // IE6 doesn't do DOMContentLoaded
      loadSpreadsheet(showInfo)
    })    
-	 
+	var map;
+	
    function showInfo(data) {
 
    	theData = data 
@@ -153,7 +154,7 @@
  
      // make map 
 
-     var map = loadMap();
+     map = loadMap();
 
      makeMap(map);
 		
@@ -216,7 +217,15 @@
 
 	function filterMap(weeks) {        
 		var week = 1000*60*60*24*7;
-		makeMap(loadMap(), filterByDate(
+		console.log(map);
+		
+		while(markers.length) {
+			var marker = markers.pop();
+			console.log(marker);
+			marker.delete();
+		}
+		
+		makeMap(map, filterByDate(
 				new Date(new Date().getTime()-week*weeks).getTime(),
                 new Date(new Date().getTime()-week*(weeks+1) ).getTime()
             )

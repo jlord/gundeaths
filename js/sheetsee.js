@@ -283,9 +283,12 @@ function inProgressSpent (projects) {
 
 // Mappin' with Leaflet.js
 
+var markers = [];
+
 function displayAddress(map, project) {
   var markerLocation = new L.LatLng(project.lat, project.lng);
   var marker = new L.Marker(markerLocation);
+  markers.push(marker);
   map.addLayer(marker);
   var thisDate = new Date(project.date);
   marker.bindPopup(
