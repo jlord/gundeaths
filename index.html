@@ -21,6 +21,7 @@
 		<script type="text/javascript" src="js/d3.v2.js"></script> 
 		<script type="text/javascript" src="js/accounting.js" ></script>
 		<script type="text/javascript" src="js/leaflet.js"></script>
+    <script type="text/javascript" src="js/underscore.js"></script>
 		<script type="text/javascript" src="js/modernizr.custom.33965.js"></script>		
 </head>
 
@@ -128,6 +129,17 @@
    				return	sortable[0];
 		}
 
+    function getOccurance(data) {
+      var occuranceCount = {};
+      for (var i = 0; i < data.length; i++)  {
+       if (!occuranceCount[data[i].state]) {
+           occuranceCount[data[i].state] = 0;
+       }
+       occuranceCount[data[i].state]++
+      }
+      return occuranceCount
+    }
+
 		 L.Icon.Default.imagePath = "images/"
      accounting.settings.currency.precision = 0
      // var pageParent = "CA" // get Parent Page name which is Category
@@ -157,6 +169,17 @@
 
       menVwomen = [{"label": "men", "units": maleData.length, "hexcolor": "#ff00ff"}, {"label": "women", "units": femaleData.length, "hexcolor": "#fff000"}]
       ageRange = [{"label": "adults", "units": adultData.length, "hexcolor": "#ff00ff"}, {"label": "teens", "units": teenData.length, "hexcolor": "#ff0fff"}, {"label": "children", "units": childData.length, "hexcolor": "#ffff00"}]
+
+      stateRage = getOccurance(theData)
+
+      function makeArrayOfObject(stateRage) {
+        Object.keys(stateRage).map(function(st){ 
+        return {
+      :stateRage[st]}})
+      }
+
+
+
 
 
 
@@ -188,6 +211,8 @@
       $('#table').html(table)
 
     }
+
+    
 
 	function filterMap(weeks) {        
 		var week = 1000*60*60*24*7;
