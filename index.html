@@ -215,8 +215,8 @@
         totalFatalities : theData.length,
         noMen : filterData(theData, "M", "gender").length,
         noWomen : filterData(theData, "F", "gender").length,
-        highestState : mostFrequent(theData)[0],
-        highestStateCount : mostFrequent(theData)[1]
+        highestState : mostFrequent(theData)[0][0],
+        highestStateCount : mostFrequent(theData)[0][1]
       })
       $('#stats').html(stats)
 
