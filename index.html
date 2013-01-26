@@ -58,6 +58,8 @@
 	      <div id="holder"></div><!-- holds spot for bar chart -->
 	      <p>Number of victims by age group</p>
 	      <div id="holder2"></div><!-- holds spot for bar chart -->
+        <p>Number of victims by state</p>
+        <div id="holder3"></div><!-- holds spot for bar chart -->
 	    <h3>All victims</h3>
 		<div id="table" style="height: 500px; background: #fff; overflow: auto;"></div><!-- holds spot for table -->
 	  </div><!-- end holder -->
@@ -130,7 +132,7 @@
       		sortable.push([state, stateCount[state]]);
       }
  					sortable.sort(function(a, b) {return b[1] - a[1]})
-   				return	sortable[0];
+   				return	sortable;
 		}
 
     function getOccurance(data) {
@@ -175,7 +177,19 @@
       menVwomen = [{"label": "men", "units": maleData.length, "hexcolor": "#ff00ff"}, {"label": "women", "units": femaleData.length, "hexcolor": "#fff000"}]
       ageRange = [{"label": "adults", "units": adultData.length, "hexcolor": "#ff00ff"}, {"label": "teens", "units": teenData.length, "hexcolor": "#ff0fff"}, {"label": "children", "units": childData.length, "hexcolor": "#ffff00"}]
 
-      stateRage = getOccurance(theData)
+      stateRange = getOccurance(theData)
+      stateRangeArray = makeArrayOfObject(stateRange)
+
+
+
+      function makeArrayOfObject(data) {
+        var keys = Object.keys(data)
+        return keys.map(function(key){ 
+          var h = {label: key, units: data[key], hexcolor: "#ff00ff"}        
+          return h
+        })
+      }
+
 
 
 
@@ -186,6 +200,7 @@
      if (Modernizr.svg) {
      	renderGraph(ageRange, ageRange.length, "#holder") 
      	renderGraph(menVwomen, menVwomen.length, "#holder2") 
+      renderGraph(stateRangeArray, stateRangeArray.length, "#holder3") 
      }
        else sorrySVG("#holder") 
      function sorrySVG(divTown) {
