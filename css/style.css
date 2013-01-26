@@ -291,6 +291,7 @@ tr {border-bottom: 1px dotted #acacac;}
 #stats p {margin: 0px 0px 9px 0px; line-height: 2em;}
 #stats {margin-bottom: 15px; background: #000; padding: 20px;}
 #stats h5 {line-height: 32px; color: #fff}
+#stats h5 span {font-size: 48px; color: #66e224}
 #entity {}
 #entity h6, #entity .statHighlight {font-family: Open Sans, arial, sans-serif; font-size: 12px; text-transform: uppercase;}
 
@@ -303,7 +304,7 @@ tr {border-bottom: 1px dotted #acacac;}
 .intro a {border-bottom: 1px dotted #acacac; padding-bottom: 2px;}
 
 /* **** Charts ***** */
-#holder, #holder2 {margin: 0 auto; width: 780px; font-size: 10px;}
+#holder, #holder2 {margin: 1; width: 780px; font-size: 10px;}
 
 small {line-height: .5em; font-size: 12px; font-family: Open Sans, Arial, sans-serif;}
 ul.linkList, li.linkList {list-style: circle; margin-bottom: 8px; margin-left: 10px;}
