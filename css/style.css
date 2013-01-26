@@ -291,6 +291,7 @@ tr {border-bottom: 1px dotted #acacac;}
 #stats p {margin: 0px 0px 9px 0px; line-height: 2em;}
 #stats {margin-bottom: 15px; background: #000; padding: 20px;}
 #stats h5 {line-height: 32px; color: #fff}
+#stats h5 span {font-size: 48px; color: #66e224}
 #entity {}
 #entity h6, #entity .statHighlight {font-family: Open Sans, arial, sans-serif; font-size: 12px; text-transform: uppercase;}
 
