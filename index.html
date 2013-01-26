@@ -27,15 +27,17 @@
 
 <body>   
 	<div id="pagewrapper">
-		<div id="header"></div><!-- #header END -->
+		<header>
+			<h1 id="header">One Nation, Under the Gun</h1>
+		</header><!-- #header END -->
      
-	<div id="sidebar">
-	</div><!-- #sidebar END -->  
+<!--<div id="sidebar">
+	</div> #sidebar END -->  
        
   <div id="maincontainer" class="overview" >
   
-	  <div class="articleHolder">
-	    <h3>One Nation, Under the Gun</h3>
+	  <article>
+	    <h3>Summary</h3>
 	      <div id="stats" ></div><!-- holds spot for stats -->
 	      	<ul>
 				<li onclick = "filterMap(0)" >week one</li>
@@ -48,14 +50,16 @@
 			</ul>
 			<div id="map" class="fullmap"><img class="spinner" src="images/fbi_spinner.gif"></div><!-- holds spot for map -->
 	      <div class="clear"></div>
-	  </div><!-- end holder -->
+	  </article><!-- end holder -->
 
 	  <div class="articleHolder">
-	    <h3>Category Funding Comparison</h3>
-	      <p>Below, a funds comparison between the Foucs Areas in Economic Development.</p>
+	    <h3>Demographic breakdown</h3>
+	      <p>Number of victims by gender</p>
 	      <div id="holder"></div><!-- holds spot for bar chart -->
+	      <p>Number of victims by age group</p>
 	      <div id="holder2"></div><!-- holds spot for bar chart -->
-        <div id="table" style="height: 500px; background: #ff00ff; overflow: auto;"></div><!-- holds spot for table -->
+	    <h3>All victims</h3>
+		<div id="table" style="height: 500px; background: #fff; overflow: auto;"></div><!-- holds spot for table -->
 	  </div><!-- end holder -->
 						 
 	</div><!-- end #maincontainer -->
@@ -149,13 +153,14 @@
  
      // make map 
 
-     //var map = loadMap();
+     var map = loadMap();
 
-     makeMap(loadMap(), filterByDate(
-                 new Date().getTime(), 
-                 new Date(new Date().getTime()-1000*60*60*24*7).getTime()
-             )
-     );
+     makeMap(map);
+		
+  	 var markerLocation = new L.LatLng(38.5181, -98.7778);
+
+	 setCenter(map, markerLocation);
+
 
      // var noProjsInCat = thePageParent.length 
      // if user's browswer doesn't support SVG, tell them
@@ -225,11 +230,17 @@
 
 
 var makeMap = function(map, filter) {
-        for (var i = 0; i < theData.length; i++) {
+        if (!filter) {
+			filter = function() {
+				return true;
+			}
+		}
+		
+		for (var i = 0; i < theData.length; i++) {
             var data = theData[i];
             if (data.lng && data.lat && filter(data)) {
                 displayAddress(map, data);
-            }
+            } 
         }
     }
 
