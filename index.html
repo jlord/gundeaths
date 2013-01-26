@@ -26,14 +26,16 @@
 
 <body>   
 	<div id="pagewrapper">
-		<div id="header"></div><!-- #header END -->
+		<header>
+			<h1 id="header">One Nation, Under the Gun</h1>
+		</header><!-- #header END -->
      
-	<div id="sidebar">
-	</div><!-- #sidebar END -->  
+<!--<div id="sidebar">
+	</div> #sidebar END -->  
        
   <div id="maincontainer" class="overview" >
   
-	  <div class="articleHolder">
+	  <article>
 	    <h3>One Nation, Under the Gun</h3>
 	      <div id="stats" ></div><!-- holds spot for stats -->
 	      	<ul>
@@ -47,7 +49,7 @@
 			</ul>
 			<div id="map" class="fullmap"><img class="spinner" src="images/fbi_spinner.gif"></div><!-- holds spot for map -->
 	      <div class="clear"></div>
-	  </div><!-- end holder -->
+	  </article><!-- end holder -->
 
 	  <div class="articleHolder">
 	    <h3>Category Funding Comparison</h3>
@@ -137,13 +139,14 @@
  
      // make map 
 
-     //var map = loadMap();
+     var map = loadMap();
 
-     makeMap(loadMap(), filterByDate(
-                 new Date().getTime(), 
-                 new Date(new Date().getTime()-1000*60*60*24*7).getTime()
-             )
-     );
+     makeMap(map);
+		
+  	 var markerLocation = new L.LatLng(38.5181, -98.7778);
+
+	 setCenter(map, markerLocation);
+
 
      // var noProjsInCat = thePageParent.length 
      // if user's browswer doesn't support SVG, tell them
@@ -200,11 +203,17 @@
 
 
 var makeMap = function(map, filter) {
-        for (var i = 0; i < theData.length; i++) {
+        if (!filter) {
+			filter = function() {
+				return true;
+			}
+		}
+		
+		for (var i = 0; i < theData.length; i++) {
             var data = theData[i];
             if (data.lng && data.lat && filter(data)) {
                 displayAddress(map, data);
-            }
+            } 
         }
     }
 
