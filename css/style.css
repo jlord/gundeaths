@@ -98,7 +98,7 @@ h1 {font-size: 46px; letter-spacing: 1px}/* Main page title header */
 h2 {font-size: 26px; margin-top: 15px;}/* Post titles in Loop and Single pages */	
 h2:first-child {margin-top: 0px;}
 h3 {font-size: 20px; margin: 20px 0px;}/* Body Section Titles*/
-h3:first-child {margin-top: 0px;}
+/* h3:first-child {margin-top: 0px;} */
 h4 {font-size: 22px; font-weight: 400; }
 h5 {font-size: 16px;}/* Sidebar header */
 h6 {font-size: 18px;}/* Body Section Titles*/
@@ -275,11 +275,11 @@ input, input[type="password"], input[type="search"], isindex {border: 0px; borde
 
 /* **** Handlebars.js Content, Table ***** */
 thead {padding-bottom: 20px; font-family: Arvo, Rockwell, serif;}
-th {background-color: #DDDDDD; font-size: 16px; font-weight: 400; padding: 6px; text-align: center;}
+th {background-color: #DDDDDD; font-size: 16px; font-weight: 400; padding: 6px; text-align: left;}
 tbody {padding: 15px 4px; font-family: Open Sans, Arial, sans-serif;}
-td {min-width: 64px; vertical-align: middle; height: 28px; padding: 3px 0px 3px 0px; font-size: 13px;}
+td {min-width: 64px; vertical-align: middle; height: 28px; padding: 3px 0px 3px 10px; font-size: 13px;}
 .project {padding-right: 10px;}
-.yrdolls {font-size: 12px; text-align: center;}
+.yrdolls {font-size: 12px; text-align: left;}
 .total {font-weight: 700; font-size: 12px;}
 tr {border-bottom: 1px dotted #acacac;}
 .tableheader {border: none;} 
@@ -289,8 +289,8 @@ tr {border-bottom: 1px dotted #acacac;}
 /* .statHighlight {background-color: #BCEDDC; padding: 4px; margin-right: 3px;} */
 .statHighlight {background-color: #fff; border: 1px dashed #e6e6e6; padding: 4px; margin-right: 3px;}
 #stats p {margin: 0px 0px 9px 0px; line-height: 2em;}
-#stats {margin-bottom: 15px; background: #eee; padding: 20px;}
-#stats h5 {line-height: 32px;}
+#stats {margin-bottom: 15px; background: #000; padding: 20px;}
+#stats h5 {line-height: 32px; color: #fff}
 #entity {}
 #entity h6, #entity .statHighlight {font-family: Open Sans, arial, sans-serif; font-size: 12px; text-transform: uppercase;}
 

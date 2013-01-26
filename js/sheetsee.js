@@ -330,9 +330,9 @@ function setCenter(map, markerLocation) {
 function renderGraph(data, noProjsInCat, divTown) {
 // margin = t, r, b, l
 // styling margin, width and height (based on number of projects)
-var m = [30, 60, 10, 100],
+var m = [30, 60, 10, 40],
     w = 780 - m[1] - m[3],
-    h = (noProjsInCat * 50) - m[0] - m[2];
+    h = (noProjsInCat * 70) - m[0] - m[2];
 
 var format = d3.format(",.0f");
 
