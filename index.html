@@ -139,10 +139,14 @@
     function getOccurance(data) {
       var occuranceCount = {};
       for (var i = 0; i < data.length; i++)  {
-       if (!occuranceCount[data[i].state]) {
-           occuranceCount[data[i].state] = 0;
+          if (!data[i].state) {
+              console.log(data[i]);
+              continue;
+          }
+       if (!occuranceCount[data[i].state.toUpperCase()]) {
+           occuranceCount[data[i].state.toUpperCase()] = 0;
        }
-       occuranceCount[data[i].state]++
+       occuranceCount[data[i].state.toUpperCase()]++
       }
       return occuranceCount
     }
@@ -201,7 +205,26 @@
      if (Modernizr.svg) {
      	renderGraph(ageRange, ageRange.length, "#holder") 
      	renderGraph(menVwomen, menVwomen.length, "#holder2") 
-      renderGraph(stateRangeArray, stateRangeArray.length, "#holder3") 
+        var stateGraphData = stateRangeArray;
+        var check = function(stateIndex) {
+            if (!stateGraphData[stateIndex].label) {
+                stateGraphData.splice(stateIndex, 1);
+                check(stateIndex);
+            }
+        }
+        for (var i=0; i < stateGraphData.length; i++) {
+            check(i);
+        }
+        var stateGraphData = stateGraphData.sort(function(a, b) {
+                if (a.label > b.label) {
+                    return 1;
+                }
+                if (a.label < b.label) {
+                    return -1;
+                }
+                return 0;
+        })
+        renderGraph(stateRangeArray, stateRangeArray.length, "#holder3") 
      }
        else sorrySVG("#holder") 
      function sorrySVG(divTown) {
