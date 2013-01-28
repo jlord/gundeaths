@@ -37,7 +37,7 @@
   <div id="maincontainer" class="overview" >
   
 	  <article>
-	    <h3>Overview</h3>
+	    <h3></h3>
 	      <div id="stats" ></div><!-- holds spot for stats -->
 	      	<!-- ><ul>
 				<li onclick = "filterMap(0)" >week one</li>
@@ -61,7 +61,7 @@
         <p>Number of victims by state</p>
         <div id="holder3"></div><!-- holds spot for bar chart -->
 	    <h3>All victims</h3>
-		<div id="table" style="height: 500px; background: #fff; overflow: auto;"></div><!-- holds spot for table -->
+		<div id="table" style="height: 500px; background: #fff;  overflow: hidden;"></div><!-- holds spot for table -->
 	  </div><!-- end holder -->
 						 
 	</div><!-- end #maincontainer -->
@@ -72,7 +72,7 @@
 <!-- commence setting up the charts for mustache.js -->
 			
 <script id="stats" type="text/html">// format stats
-	<h5>There have been <span>{{totalFatalities}}</span> gun fatalities since the Sandy Hook Elementary School shooting. Among the victims, <span>{{noMen}}</span> were male and <span>{{noWomen}}</span> were female. Since the Newtown incident, there have been <span>{{highestStateCount}}</span> deaths by firearm in {{highestState}}, more than any other state in the country.</h5>
+	<h5>There have been <span>{{totalFatalities}}</span> gun fatalities since the Sandy Hook Elementary School shooting. Among the victims, <span>{{noMen}}</span> were male and <span>{{noWomen}}</span> were female. Since the Newtown incident, there have been <span>{{highestStateCount}}</span> gun deaths per capita in {{highestState}}, the highest in the country.</h5>
 </script>
 
 <script id="table" type="text/html">// format stats

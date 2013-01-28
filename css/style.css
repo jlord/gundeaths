@@ -126,7 +126,7 @@ h6 {font-size: 18px;}/* Body Section Titles*/
 
 #title_container {positon: relative; float: right;}	
 #header   {position: relative; height: 110px; width: 100%; padding-top: 20px; overflow: auto;
-		   background-image: url('../images/rainbowtop.png'); background-position: top; background-repeat: repeat-x;}
+		   /* background-image: url('../images/rainbowtop.png'); */ background-position: top; background-repeat: repeat-x;}
 p.subtitle {position: relative; font-family: 'Arvo', serif; font-size: 15px; color: #333; line-height: 21px; 
 		   margin: 0px 2px 4px 0px; float: right; text-align: right;}		
 
@@ -275,13 +275,16 @@ input, input[type="password"], input[type="search"], isindex {border: 0px; borde
 
 /* **** Handlebars.js Content, Table ***** */
 thead {padding-bottom: 20px; font-family: Arvo, Rockwell, serif;}
-th {background-color: #DDDDDD; font-size: 16px; font-weight: 400; padding: 6px; text-align: left;}
-tbody {padding: 15px 4px; font-family: Open Sans, Arial, sans-serif;}
-td {min-width: 64px; vertical-align: middle; height: 28px; padding: 3px 0px 3px 10px; font-size: 13px;}
-.project {padding-right: 10px;}
+tr {display: table-header-group;}
+th {background-color: #DDDDDD; font-size: 16px; font-weight: 400; padding: 6px 0px 6px 0px; text-align: left; min-width: 200px;}
+tbody {display: block; overflow: auto; height: 500px; width: 100%; padding: 15px 4px; font-family: Open Sans, Arial, sans-serif;}
+td {min-width: 70px; vertical-align: middle; height: 28px; padding: 6px 120px 6px 3px; font-size: 13px; text-align: left;}
+.project {padding-right: 10px; min-width: 200px;}
+/*
 .yrdolls {font-size: 12px; text-align: left;}
 .total {font-weight: 700; font-size: 12px;}
-tr {border-bottom: 1px dotted #acacac;}
+*/
+tr {border-bottom: 1px solid #acacac;}
 .tableheader {border: none;} 
 #table table {width: 100%;}
 #schedule table, #monthly table {width: 100%; margin-top: 20px;}
@@ -289,9 +292,9 @@ tr {border-bottom: 1px dotted #acacac;}
 /* .statHighlight {background-color: #BCEDDC; padding: 4px; margin-right: 3px;} */
 .statHighlight {background-color: #fff; border: 1px dashed #e6e6e6; padding: 4px; margin-right: 3px;}
 #stats p {margin: 0px 0px 9px 0px; line-height: 2em;}
-#stats {margin-bottom: 15px; background: #000; padding: 20px;}
-#stats h5 {line-height: 32px; color: #fff}
-#stats h5 span {font-size: 48px; color: #66e224}
+#stats {background-color: #eee; margin-bottom: 15px; padding: 20px;}
+#stats h5 {line-height: 32px}
+#stats h5 span {font-size: 32px; font-weight: bold;}
 #entity {}
 #entity h6, #entity .statHighlight {font-family: Open Sans, arial, sans-serif; font-size: 12px; text-transform: uppercase;}
 
