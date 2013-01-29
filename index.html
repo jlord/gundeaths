@@ -72,7 +72,7 @@
 <!-- commence setting up the charts for mustache.js -->
 			
 <script id="stats" type="text/html">// format stats
-	<h5>There have been <span>{{totalFatalities}}</span> gun fatalities since the Sandy Hook Elementary School shooting. Among the victims, <span>{{noMen}}</span> were male and <span>{{noWomen}}</span> were female. Since the Newtown incident, there have been <span>{{highestStateCount}}</span> gun deaths per capita in {{highestState}}, the highest in the country.</h5>
+	<h5>There have been <span>{{totalFatalities}}</span> gun fatalities since the Sandy Hook Elementary School shooting. Among the victims, <span>{{noMen}}</span> were male and <span>{{noWomen}}</span> were female. Since the Newtown incident, there have been <span>{{highestDeathsPerHundredThousand}}</span> gun deaths per 100,000 people in {{highestStatePerCapita}}, the most in the country.</h5>
 </script>
 
 <script id="table" type="text/html">// format stats
@@ -94,11 +94,105 @@
      loadSpreadsheet(showInfo)
    })    
 	var map;
+
+	var statesAbbrToName = {
+		AL: 'Alabama', AK: 'Alaska', AZ: 'Arizona', AR: 'Arkansas', CA: 'California', CO: 'Colorado', CT: 'Connecticut', DE: 'Delaware', DC: 'District of Columbia', FL: 'Florida', GA: 'Georgia', HI: 'Hawaii', ID: 'Idaho', IL: 'Illinois', IN: 'Indiana', IA: 'Iowa', KS: 'Kansas', KY: 'Kentucky', LA: 'Louisiana', ME: 'Maine', MD: 'Maryland', MA: 'Massachusetts', MI: 'Michigan', MN: 'Minnesota', MO: 'Missouri', MT: 'Montana', NE: 'Nebraska', NV: 'Nevada', NH: 'New Hampshire', NJ: 'New Jersey', NM: 'New Mexico', NY: 'New York', NC: 'North Carolina', ND: 'North Dakota', OH: 'Ohio', OK: 'Oklahoma', OR: 'Oregon', PA: 'Pennsylvania', RI: 'Rhode Island', SC: 'South Carolina', SD: 'South Dakota', TN: 'Tennessee', TX: 'Texas', UT: 'Utah', VT: 'Vermont', VA: 'Virginia', WA: 'Washington', WV: 'West Virginia', WI: 'Wisconsin', WY: 'Wyoming'
+		};
+	
+	var statePop = {
+	  "Alabama":4822023,
+	  "Alaska":731449,
+	  "Arizona":6553255,
+	  "Arkansas":2949131,
+	  "California":38041430,
+	  "Colorado":5187582,
+	  "Connecticut":3590347,
+	  "Delaware":917092,
+	  "District of Columbia":632323,
+	  "Florida":19317568,
+	  "Georgia":9919945,
+	  "Hawaii":1392313,
+	  "Idaho":1595728,
+	  "Illinois":12875255,
+	  "Indiana":6537334,
+	  "Iowa":3074186,
+	  "Kansas":2885905,
+	  "Kentucky":4380415,
+	  "Louisiana":4601893,
+	  "Maine":1329192,
+	  "Maryland":5884563,
+	  "Massachusetts":6646144,
+	  "Michigan":9883360,
+	  "Minnesota":5379139,
+	  "Mississippi":2984926,
+	  "Missouri":6021988,
+	  "Montana":1005141,
+	  "Nebraska":1855525,
+	  "Nevada":2758931,
+	  "New Hampshire":1320718,
+	  "New Jersey":8864590,
+	  "New Mexico":2085538,
+	  "New York":19570261,
+	  "North Carolina":9752073,
+	  "North Dakota":699628,
+	  "Ohio":11544225,
+	  "Oklahoma":3814820,
+	  "Oregon":3899353,
+	  "Pennsylvania":12763536,
+	  "Rhode Island":1050292,
+	  "South Carolina":4723723,
+	  "South Dakota":833354,
+	  "Tennessee":6456243,
+	  "Texas":26059203,
+	  "Utah":2855287,
+	  "Vermont":626011,
+	  "Virginia":8185867,
+	  "Washington":6897012,
+	  "West Virginia":1855413,
+	  "Wisconsin":5726398,
+	  "Wyoming":576412
+	}
+	
 	
    function showInfo(data) {
 
    	theData = data 
 
+		var stateData = [];
+		var stateCount = {};
+   		for (var i = 0; i < data.length; i++)  {
+		if (!data[i].state) {
+			console.log(data[i]);
+			continue;
+		}
+       	if (!stateCount[data[i].state.toUpperCase()]) {
+           stateCount[data[i].state.toUpperCase()] = 0;
+       }
+       stateCount[data[i].state.toUpperCase()]++
+
+	}
+   			var stateCountArray = [];
+			
+ 			for (var stateAbbr in stateCount) {
+      				var abbr = stateAbbr;
+					var totalDeaths = stateCount[stateAbbr];
+					var stateName = statesAbbrToName[stateAbbr];
+					var totalPop = statePop[stateName];
+					var perCapita = totalDeaths / totalPop;
+								
+					var stateObj = {
+						'state':stateName,
+						'stateAbbr':abbr,
+						'deaths':totalDeaths,
+						'deathsPerCapita': perCapita,					
+					};
+									
+					stateCountArray.push(stateObj);      			
+				}
+			stateCountArray.sort(function(a, b) {
+				return b.deathsPerCapita - a.deathsPerCapita;
+			});
+	
 		function getColumnSum (data, columnToSum) {
 		  if (projects = []) return "0"
 		  var columnSum = []
@@ -118,22 +212,6 @@
 	    if (dataType === filterTerm) filteredProjects.push(element)
 	  })
 	  return filteredProjects
-		}
-
-		function mostFrequent(data) {
-			var stateCount = {};
-   		for (var i = 0; i < data.length; i++)  {
-       if (!stateCount[data[i].state]) {
-           stateCount[data[i].state] = 0;
-       }
-       stateCount[data[i].state]++
-   }
-   			var sortable = [];
- 				for (var state in stateCount) {
-      		sortable.push([state, stateCount[state]]);
-      }
- 					sortable.sort(function(a, b) {return b[1] - a[1]})
-   				return	sortable;
 		}
 
     function getOccurance(data) {
@@ -197,11 +275,6 @@
 
 
 
-
-
-
-
-
      if (Modernizr.svg) {
      	renderGraph(ageRange, ageRange.length, "#holder") 
      	renderGraph(menVwomen, menVwomen.length, "#holder2") 
@@ -239,9 +312,9 @@
         totalFatalities : theData.length,
         noMen : filterData(theData, "M", "gender").length,
         noWomen : filterData(theData, "F", "gender").length,
-        highestState : mostFrequent(theData)[0][0],
-        highestStateCount : mostFrequent(theData)[0][1]
-      })
+      	highestStatePerCapita : stateCountArray[0].state,
+		highestDeathsPerHundredThousand : (stateCountArray[0].deathsPerCapita*100000).toFixed(2),
+		})
       $('#stats').html(stats)
 
     var table = ich.table({
